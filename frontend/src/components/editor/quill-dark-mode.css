@@ -1,0 +1,81 @@
+/* Dark mode styles for ReactQuill */
+
+/* Editor container */
+.dark .ql-container {
+  border-color: #4b5563 !important;
+  color: #e5e7eb !important;
+  background-color: #1f2937 !important;
+}
+
+/* Toolbar */
+.dark .ql-toolbar {
+  border-color: #4b5563 !important;
+  background-color: #374151 !important;
+  color: #e5e7eb !important;
+}
+
+/* Toolbar buttons */
+.dark .ql-toolbar button,
+.dark .ql-toolbar .ql-picker {
+  color: #e5e7eb !important;
+}
+
+/* Toolbar button hover */
+.dark .ql-toolbar button:hover,
+.dark .ql-toolbar button.ql-active,
+.dark .ql-toolbar .ql-picker-label:hover,
+.dark .ql-toolbar .ql-picker-label.ql-active {
+  color: #f59e0b !important;
+}
+
+/* SVG icons in toolbar */
+.dark .ql-toolbar button svg path,
+.dark .ql-toolbar button svg line,
+.dark .ql-toolbar button svg rect,
+.dark .ql-toolbar button svg polygon {
+  stroke: #e5e7eb !important;
+}
+
+.dark .ql-toolbar button:hover svg path,
+.dark .ql-toolbar button:hover svg line,
+.dark .ql-toolbar button:hover svg rect,
+.dark .ql-toolbar button:hover svg polygon,
+.dark .ql-toolbar button.ql-active svg path,
+.dark .ql-toolbar button.ql-active svg line,
+.dark .ql-toolbar button.ql-active svg rect,
+.dark .ql-toolbar button.ql-active svg polygon {
+  stroke: #f59e0b !important;
+}
+
+/* Dropdown menus */
+.dark .ql-toolbar .ql-picker-options {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark .ql-toolbar .ql-picker-item {
+  color: #e5e7eb !important;
+}
+
+.dark .ql-toolbar .ql-picker-item:hover,
+.dark .ql-toolbar .ql-picker-item.ql-selected {
+  color: #f59e0b !important;
+}
+
+/* Editor content */
+.dark .ql-editor {
+  color: #e5e7eb !important;
+}
+
+.dark .ql-editor.ql-blank::before {
+  color: #9ca3af !important;
+}
+
+/* Fix for z-index issues that might make the editor uneditable */
+.ql-container {
+  z-index: 1 !important;
+}
+
+.ql-editor {
+  z-index: 1 !important;
+}

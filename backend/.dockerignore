@@ -1,0 +1,39 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Environment variables
+.env
+config.env
+
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+
+# Test files
+__tests__
+tests
+test
+*.test.js
+*.spec.js
+jest.config.js
+
+# Development files
+.vscode
+.idea
+*.log
+
+# Local uploads (if using Cloudinary)
+# Uncomment if you're using Cloudinary exclusively
+# uploads
+
+# Build files
+dist
+build
+
+# Temporary files
+tmp
+temp

@@ -1,0 +1,3 @@
+# This is a placeholder for blog images
+# In a real implementation, this would be an actual JPG image file
+# For now, this prevents 404 errors when the app tries to load placeholder.jpg
