@@ -2,7 +2,7 @@ const express = require('express')
 const { body, validationResult } = require('express-validator')
 const Comment = require('../models/Comment')
 const Blog = require('../models/Blog')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 const notificationManager = require('../utils/notificationManager')
 
 const router = express.Router()
@@ -138,7 +138,7 @@ router.put('/:commentId', auth, [
     }
     
     // Check if user can edit this comment
-    if (comment.author.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+    if (comment.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to edit this comment' })
     }
     
@@ -165,7 +165,7 @@ router.delete('/:commentId', auth, async (req, res) => {
     }
     
     // Check if user can delete this comment
-    if (comment.author.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+    if (comment.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to delete this comment' })
     }
     
@@ -243,7 +243,7 @@ router.post('/:commentId/report', auth, async (req, res) => {
 })
 
 // Get comment statistics
-router.get('/stats/overview', adminAuth, async (req, res) => {
+router.get('/stats/overview', auth, async (req, res) => {
   try {
     const totalComments = await Comment.countDocuments()
     const totalReplies = await Comment.countDocuments({ parentComment: { $ne: null } })

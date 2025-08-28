@@ -1,19 +1,9 @@
 const express = require('express')
 const User = require('../models/User')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 
 const router = express.Router()
 
-// Get all users (admin only)
-router.get('/', adminAuth, async (req, res) => {
-  try {
-    const users = await User.find({}).select('-password').sort({ createdAt: -1 })
-    res.json(users)
-  } catch (error) {
-    console.error('Get users error:', error)
-    res.status(500).json({ message: 'Server error' })
-  }
-})
 
 // Get user by ID
 router.get('/:id', async (req, res) => {
@@ -100,55 +90,5 @@ router.get('/:id/stats', async (req, res) => {
   }
 })
 
-// Update user role (admin only)
-router.patch('/:id/role', adminAuth, async (req, res) => {
-  try {
-    const { role } = req.body
-    
-    if (!['user', 'admin'].includes(role)) {
-      return res.status(400).json({ message: 'Invalid role' })
-    }
-    
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { role },
-      { new: true, runValidators: true }
-    ).select('-password')
-    
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' })
-    }
-    
-    res.json({
-      message: 'User role updated successfully',
-      user
-    })
-  } catch (error) {
-    console.error('Update user role error:', error)
-    res.status(500).json({ message: 'Server error' })
-  }
-})
-
-// Delete user (admin only)
-router.delete('/:id', adminAuth, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id)
-    
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' })
-    }
-    
-    if (user.role === 'admin') {
-      return res.status(400).json({ message: 'Cannot delete admin users' })
-    }
-    
-    await User.findByIdAndDelete(req.params.id)
-    
-    res.json({ message: 'User deleted successfully' })
-  } catch (error) {
-    console.error('Delete user error:', error)
-    res.status(500).json({ message: 'Server error' })
-  }
-})
 
 module.exports = router

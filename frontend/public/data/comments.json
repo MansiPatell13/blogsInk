@@ -1,0 +1,98 @@
+[
+  {
+    "_id": "comment1",
+    "content": "Great article! The useState examples really helped me understand the concept better.",
+    "author": {
+      "_id": "user2",
+      "name": "Bob Smith",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog1",
+    "parentComment": null,
+    "replies": [],
+    "likes": ["user1", "user3"],
+    "isEdited": false,
+    "createdAt": "2024-01-16T10:30:00.000Z",
+    "updatedAt": "2024-01-16T10:30:00.000Z"
+  },
+  {
+    "_id": "comment2",
+    "content": "I visited Koh Rong Sanloem last year and it was absolutely magical! Thanks for bringing back the memories.",
+    "author": {
+      "_id": "user3",
+      "name": "Carol Davis",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog2",
+    "parentComment": null,
+    "replies": ["comment3"],
+    "likes": ["user1"],
+    "isEdited": false,
+    "createdAt": "2024-01-13T14:20:00.000Z",
+    "updatedAt": "2024-01-13T14:20:00.000Z"
+  },
+  {
+    "_id": "comment3",
+    "content": "Which time of year did you visit? I'm planning a trip there soon!",
+    "author": {
+      "_id": "user1",
+      "name": "Alice Johnson",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog2",
+    "parentComment": "comment2",
+    "replies": [],
+    "likes": [],
+    "isEdited": false,
+    "createdAt": "2024-01-13T15:45:00.000Z",
+    "updatedAt": "2024-01-13T15:45:00.000Z"
+  },
+  {
+    "_id": "comment4",
+    "content": "Tried this pasta recipe last weekend and it turned out amazing! My family loved it.",
+    "author": {
+      "_id": "user1",
+      "name": "Alice Johnson",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog3",
+    "parentComment": null,
+    "replies": [],
+    "likes": ["user2", "user3"],
+    "isEdited": false,
+    "createdAt": "2024-01-11T09:15:00.000Z",
+    "updatedAt": "2024-01-11T09:15:00.000Z"
+  },
+  {
+    "_id": "comment5",
+    "content": "This morning routine has completely transformed my productivity. Thank you for sharing!",
+    "author": {
+      "_id": "user4",
+      "name": "David Wilson",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog4",
+    "parentComment": null,
+    "replies": [],
+    "likes": ["user1", "user5"],
+    "isEdited": false,
+    "createdAt": "2024-01-09T07:30:00.000Z",
+    "updatedAt": "2024-01-09T07:30:00.000Z"
+  },
+  {
+    "_id": "comment6",
+    "content": "The 1% better principle is so simple yet powerful. Starting small really works!",
+    "author": {
+      "_id": "user5",
+      "name": "Emma Thompson",
+      "avatar": "/placeholder-user.jpg"
+    },
+    "blog": "blog5",
+    "parentComment": null,
+    "replies": [],
+    "likes": ["user3", "user4"],
+    "isEdited": false,
+    "createdAt": "2024-01-06T16:20:00.000Z",
+    "updatedAt": "2024-01-06T16:20:00.000Z"
+  }
+]

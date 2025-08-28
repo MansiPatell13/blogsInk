@@ -10,7 +10,6 @@ A modern, full-featured blogging platform built with the MERN stack (MongoDB, Ex
 - **User Profiles**: Customizable user profiles with avatars and bios
 - **Search & Filtering**: Advanced search and category-based filtering
 - **Like System**: Like and unlike blog posts
-- **Admin Panel**: User management and platform administration
 - **Responsive Design**: Mobile-first design with Tailwind CSS
 - **Real-time Updates**: Live updates for likes, comments, and views
 
@@ -136,7 +135,6 @@ mern-blogsink/
 - `GET /api/blogs/categories` - Get blog categories
 
 ### Users
-- `GET /api/users` - Get all users (admin only)
 - `GET /api/users/:id` - Get user profile
 - `POST /api/users/:id/follow` - Follow/unfollow user
 - `GET /api/users/:id/stats` - Get user statistics

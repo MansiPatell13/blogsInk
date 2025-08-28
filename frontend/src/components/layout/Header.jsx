@@ -96,16 +96,6 @@ const Header = ({ onMenuToggle, isMenuOpen }) => {
                       <span>Profile</span>
                     </Link>
                     
-                    {user.role === 'admin' && (
-                      <Link
-                        to="/admin"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                      >
-                        <Shield className="w-4 h-4" />
-                        <span>Admin Panel</span>
-                      </Link>
-                    )}
                     
                     <Link
                       to="/settings"

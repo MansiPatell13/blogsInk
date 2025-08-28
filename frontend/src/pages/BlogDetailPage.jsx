@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { Heart, MessageCircle, Eye, Share2, Bookmark, MoreHorizontal, Edit, Trash2, Flag } from 'lucide-react';
 import { useAuth } from '../utils/useAuth.jsx';
-import api from '../utils/api';
+import jsonDataService from '../services/jsonDataService';
 import { toast } from 'react-hot-toast';
 import RichTextEditor from '../components/editor/RichTextEditor';
 import CommentSection from '../components/blog/CommentSection';
@@ -28,7 +28,7 @@ const BlogDetailPage = () => {
   const fetchBlog = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/blogs/${slug}`);
+      const response = await jsonDataService.getBlog(slug);
       setBlog(response.data);
       setEditContent(response.data.content);
     } catch (err) {
@@ -46,7 +46,7 @@ const BlogDetailPage = () => {
     }
 
     try {
-      const response = await api.post(`/blogs/${blog._id}/like`);
+      const response = await jsonDataService.likeBlog(blog._id);
       setBlog(prevBlog => ({
         ...prevBlog,
         likes: response.data.likes
@@ -92,7 +92,7 @@ const BlogDetailPage = () => {
   const handleSave = async () => {
     try {
       setSaving(true);
-      const response = await api.put(`/blogs/${blog._id}`, {
+      const response = await jsonDataService.updateBlog(blog._id, {
         content: editContent,
       });
       setBlog(response.data);
@@ -116,7 +116,7 @@ const BlogDetailPage = () => {
     }
 
     try {
-      await api.delete(`/blogs/${blog._id}`);
+      await jsonDataService.deleteBlog(blog._id);
       toast.success('Blog deleted successfully!');
       navigate('/');
     } catch (err) {
@@ -155,7 +155,7 @@ const BlogDetailPage = () => {
     );
   }
 
-  const canEdit = user && (user._id === blog.author._id || user.role === 'admin');
+  const canEdit = user && (user._id === blog.author._id);
   const isLiked = blog.likes?.some(like => like === user?._id || like._id === user?._id);
 
   return (

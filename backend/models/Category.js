@@ -57,7 +57,7 @@ categorySchema.pre('save', function(next) {
 // Update blog count when blogs are added/removed
 categorySchema.methods.updateBlogCount = async function() {
   const Blog = require('./Blog')
-  const count = await Blog.countDocuments({ category: this._id, published: true })
+  const count = await Blog.countDocuments({ category: this._id, status: 'published' })
   this.blogCount = count
   await this.save()
 }

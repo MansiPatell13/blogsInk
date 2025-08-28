@@ -1,7 +1,7 @@
 const express = require('express')
 const SeoData = require('../models/SeoData')
 const Blog = require('../models/Blog')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 
 const router = express.Router()
 
@@ -94,10 +94,10 @@ router.post('/blog/:blogId', auth, async (req, res) => {
   }
 })
 
-// Generate SEO data for all blogs (admin only)
-router.post('/generate-all', adminAuth, async (req, res) => {
+// Generate SEO data for all blogs
+router.post('/generate-all', auth, async (req, res) => {
   try {
-    const blogs = await Blog.find({ published: true }).populate('author', 'name')
+    const blogs = await Blog.find({ status: 'published' }).populate('author', 'name')
     
     const results = await Promise.all(
       blogs.map(async (blog) => {

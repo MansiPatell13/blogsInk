@@ -1,7 +1,7 @@
 const express = require('express')
 const Tag = require('../models/Tag')
 const Blog = require('../models/Blog')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 
 const router = express.Router()
 
@@ -64,7 +64,7 @@ router.get('/:name/blogs', async (req, res) => {
     
     const blogs = await Blog.find({ 
       tags: tag._id,
-      published: true 
+      status: 'published' 
     })
       .populate('author', 'name avatar')
       .populate('category', 'name slug')
@@ -75,7 +75,7 @@ router.get('/:name/blogs', async (req, res) => {
     
     const total = await Blog.countDocuments({ 
       tags: tag._id,
-      published: true 
+      status: 'published' 
     })
     
     res.json({
@@ -91,8 +91,8 @@ router.get('/:name/blogs', async (req, res) => {
   }
 })
 
-// Create new tag (admin only)
-router.post('/', adminAuth, async (req, res) => {
+// Create new tag
+router.post('/', auth, async (req, res) => {
   try {
     const { name, displayName, description, featured } = req.body
     
@@ -123,8 +123,8 @@ router.post('/', adminAuth, async (req, res) => {
   }
 })
 
-// Update tag (admin only)
-router.put('/:id', adminAuth, async (req, res) => {
+// Update tag
+router.put('/:id', auth, async (req, res) => {
   try {
     const { displayName, description, featured } = req.body
     
@@ -147,8 +147,8 @@ router.put('/:id', adminAuth, async (req, res) => {
   }
 })
 
-// Delete tag (admin only)
-router.delete('/:id', adminAuth, async (req, res) => {
+// Delete tag
+router.delete('/:id', auth, async (req, res) => {
   try {
     const tag = await Tag.findById(req.params.id)
     

@@ -105,12 +105,28 @@ const blogSchema = new mongoose.Schema({
   timestamps: true
 })
 
-// Calculate read time before saving
+// Generate slug and calculate read time before saving
 blogSchema.pre('save', function(next) {
+  // Generate slug from title if not provided
+  if (this.isModified('title') && !this.slug) {
+    const slugify = require('slugify')
+    this.slug = slugify(this.title, { lower: true, strict: true })
+  }
+  
+  // Calculate read time
   if (this.isModified('content')) {
     const wordCount = this.content.split(/\s+/).length
     this.readTime = Math.ceil(wordCount / 200) // Average reading speed: 200 words per minute
   }
+  
+  // Set publishedAt when status changes to published
+  if (this.isModified('status') && this.status === 'published' && !this.publishedAt) {
+    this.publishedAt = new Date()
+  }
+  
+  // Sync published field with status for backward compatibility
+  this.published = this.status === 'published'
+  
   next()
 })
 

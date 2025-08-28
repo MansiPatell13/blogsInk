@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     } = req.query
     
     // Build query object
-    let query = { published: true }
+    let query = { status: 'published' }
     
     // Text search if query provided
     if (q) {
@@ -135,7 +135,7 @@ router.get('/suggestions', async (req, res) => {
     const blogSuggestions = await Blog.find(
       { 
         title: { $regex: q, $options: 'i' },
-        published: true 
+        status: 'published' 
       },
       'title slug'
     ).limit(5)

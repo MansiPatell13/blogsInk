@@ -4,7 +4,7 @@ import { useAuth } from '../utils/useAuth.jsx'
 import { useTheme } from '../utils/ThemeContext'
 import { Save, Eye, Send, Image, Link, Video, FileText, X } from 'lucide-react'
 import RichTextEditor from '../components/editor/RichTextEditor'
-import api from '../utils/api'
+import jsonDataService from '../services/jsonDataService'
 
 const WritePage = () => {
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ const WritePage = () => {
     if (!title || !content) return
 
     try {
-      await api.post('/blogs/draft', {
+      await jsonDataService.createBlog({
         title,
         content,
         excerpt,
@@ -89,7 +89,7 @@ const WritePage = () => {
 
     setIsSaving(true)
     try {
-      const response = await api.post('/blogs/draft', {
+      const response = await jsonDataService.createBlog({
         title,
         content,
         excerpt,
@@ -114,11 +114,11 @@ const WritePage = () => {
 
     setIsSaving(true)
     try {
-      const response = await api.post('/blogs/draft', {
+      const response = await jsonDataService.createBlog({
         title,
         content,
         excerpt,
-        category: publishData.category || 'Technology',
+        category: publishData.category || 'cat1',
         tags: publishData.tags || [],
         status: 'published'
       })
@@ -128,8 +128,8 @@ const WritePage = () => {
       console.log('Blog published:', response.data)
       
       // Redirect to the published blog
-      if (response.data.blog && response.data.blog._id) {
-        navigate(`/blog/${response.data.blog._id}`)
+      if (response.data && response.data.slug) {
+        navigate(`/blog/${response.data.slug}`)
       } else {
         navigate('/')
       }

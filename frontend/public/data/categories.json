@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "cat1",
+    "name": "Technology",
+    "slug": "technology",
+    "description": "Latest in tech and innovation",
+    "color": "#3B82F6",
+    "blogCount": 15,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "cat2",
+    "name": "Travel",
+    "slug": "travel",
+    "description": "Explore the world through stories",
+    "color": "#10B981",
+    "blogCount": 12,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "cat3",
+    "name": "Food",
+    "slug": "food",
+    "description": "Culinary adventures and recipes",
+    "color": "#F59E0B",
+    "blogCount": 8,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "cat4",
+    "name": "Lifestyle",
+    "slug": "lifestyle",
+    "description": "Life tips and personal stories",
+    "color": "#EF4444",
+    "blogCount": 10,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "cat5",
+    "name": "Health",
+    "slug": "health",
+    "description": "Wellness and health tips",
+    "color": "#8B5CF6",
+    "blogCount": 6,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "cat6",
+    "name": "Business",
+    "slug": "business",
+    "description": "Entrepreneurship and business insights",
+    "color": "#059669",
+    "blogCount": 4,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  }
+]

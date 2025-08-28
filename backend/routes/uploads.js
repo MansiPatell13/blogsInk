@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { uploadBlogImage, uploadProfileImage, deleteImage } = require('../middleware/upload');
-const { auth, adminAuth } = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 const { upload, uploadToCloudinary, deleteFromCloudinary, isCloudinaryConfigured } = require('../utils/fileUpload');
 const User = require('../models/User');
 const Category = require('../models/Category');
@@ -85,8 +85,8 @@ router.post('/profile-image', auth, uploadProfileImage, async (req, res) => {
   }
 });
 
-// Upload category image
-router.post('/category-image', adminAuth, upload.single('image'), async (req, res) => {
+// Upload category image (removed admin restriction)
+router.post('/category-image', auth, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });

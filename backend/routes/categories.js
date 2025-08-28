@@ -1,7 +1,7 @@
 const express = require('express')
 const { body, validationResult } = require('express-validator')
 const Category = require('../models/Category')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 
 const router = express.Router()
 
@@ -34,8 +34,8 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// Create new category (admin only)
-router.post('/', adminAuth, [
+// Create new category
+router.post('/', auth, [
   body('name').trim().isLength({ min: 2, max: 50 }).withMessage('Name must be between 2 and 50 characters'),
   body('description').optional().trim().isLength({ max: 500 }).withMessage('Description must be less than 500 characters'),
   body('color').optional().isHexColor().withMessage('Color must be a valid hex color')
@@ -73,8 +73,8 @@ router.post('/', adminAuth, [
   }
 })
 
-// Update category (admin only)
-router.put('/:id', adminAuth, [
+// Update category
+router.put('/:id', auth, [
   body('name').optional().trim().isLength({ min: 2, max: 50 }),
   body('description').optional().trim().isLength({ max: 500 }),
   body('color').optional().isHexColor()
@@ -105,8 +105,8 @@ router.put('/:id', adminAuth, [
   }
 })
 
-// Delete category (admin only)
-router.delete('/:id', adminAuth, async (req, res) => {
+// Delete category
+router.delete('/:id', auth, async (req, res) => {
   try {
     const category = await Category.findByIdAndDelete(req.params.id)
     

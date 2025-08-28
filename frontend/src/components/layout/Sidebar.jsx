@@ -35,11 +35,6 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/stats', icon: BarChart3, label: 'Stats' }
   ]
 
-  const adminItems = [
-    { path: '/admin', icon: Shield, label: 'Admin Panel' },
-    { path: '/admin/users', icon: Users, label: 'Manage Users' },
-    { path: '/admin/blogs', icon: FileText, label: 'Manage Blogs' }
-  ]
 
   const statsItems = [
     { icon: Heart, label: 'Total Likes', value: user?.totalLikes || 0 },
@@ -104,34 +99,6 @@ const Sidebar = ({ isOpen, onClose }) => {
               })}
             </div>
 
-            {/* Admin Section */}
-            {user?.role === 'admin' && (
-              <div className="mt-8">
-                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                  Admin
-                </h4>
-                <div className="space-y-2">
-                  {adminItems.map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        onClick={onClose}
-                        className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
-                          isActive(item.path)
-                            ? 'bg-red-100 text-red-700 border-r-2 border-red-500'
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
 
             {/* Stats Section */}
             {user && (

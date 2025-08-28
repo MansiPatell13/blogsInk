@@ -24,19 +24,4 @@ const auth = async (req, res, next) => {
   }
 }
 
-const adminAuth = async (req, res, next) => {
-  // Use a custom next function to avoid double-sending headers
-  const authNext = (error) => {
-    if (error) return next(error);
-    
-    if (!req.user || req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Access denied. Admin only.' })
-    }
-    
-    next()
-  }
-  
-  auth(req, res, authNext)
-}
-
-module.exports = { auth, adminAuth }
+module.exports = { auth }

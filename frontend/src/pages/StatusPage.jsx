@@ -62,64 +62,12 @@ const StatusPage = () => {
         overallStatus = healthData.status === 'OK' ? 'operational' : 'degraded'
       }
       
-      // Get detailed system health from admin endpoint
-      try {
-        const adminHealthResponse = await fetch('/api/admin/system/health')
-        
-        if (adminHealthResponse.ok) {
-          const adminHealthData = await adminHealthResponse.json()
-          
-          // Update services with real data
-          const updatedServices = [...systemStatus.services]
-          
-          // Update database status
-          const dbServiceIndex = updatedServices.findIndex(s => s.name === 'Database')
-          if (dbServiceIndex >= 0) {
-            updatedServices[dbServiceIndex] = {
-              ...updatedServices[dbServiceIndex],
-              status: adminHealthData.database === 'connected' ? 'operational' : 'outage',
-              responseTime: '15ms', // We could calculate this from actual queries in a real app
-            }
-          }
-          
-          // Update API status based on overall health
-          const apiServiceIndex = updatedServices.findIndex(s => s.name === 'API')
-          if (apiServiceIndex >= 0) {
-            updatedServices[apiServiceIndex] = {
-              ...updatedServices[apiServiceIndex],
-              status: adminHealthData.status === 'healthy' ? 'operational' : 'degraded',
-              responseTime: '45ms', // Could be calculated from actual API response times
-            }
-          }
-          
-          setSystemStatus(prev => ({
-            ...prev,
-            overall: overallStatus,
-            lastUpdated: adminHealthData.timestamp || new Date().toISOString(),
-            services: updatedServices,
-            // Add system metrics from admin health endpoint
-            metrics: {
-              memory: adminHealthData.memory,
-              uptime: adminHealthData.uptime
-            }
-          }))
-        } else {
-          // If admin health endpoint fails, still update with basic health status
-          setSystemStatus(prev => ({
-            ...prev,
-            overall: overallStatus,
-            lastUpdated: new Date().toISOString()
-          }))
-        }
-      } catch (adminError) {
-        console.error('Error fetching admin health data:', adminError)
-        // If admin health endpoint fails, still update with basic health status
-        setSystemStatus(prev => ({
-          ...prev,
-          overall: overallStatus,
-          lastUpdated: new Date().toISOString()
-        }))
-      }
+      // Update system status with basic health data
+      setSystemStatus(prev => ({
+        ...prev,
+        overall: overallStatus,
+        lastUpdated: new Date().toISOString()
+      }))
       
       setIsLoading(false)
     } catch (error) {

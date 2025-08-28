@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "user1",
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "avatar": "/placeholder-user.jpg",
+    "bio": "Tech enthusiast and blogger passionate about modern web development",
+    "followers": 1250,
+    "following": 340,
+    "role": "user",
+    "createdAt": "2023-12-01T00:00:00.000Z",
+    "socialLinks": {
+      "twitter": "https://twitter.com/alicejohnson",
+      "linkedin": "https://linkedin.com/in/alicejohnson",
+      "github": "https://github.com/alicejohnson"
+    },
+    "bookmarks": ["blog2", "blog3"],
+    "notificationSettings": {
+      "email": true,
+      "push": true,
+      "comments": true,
+      "likes": true
+    }
+  },
+  {
+    "_id": "user2",
+    "name": "Bob Smith",
+    "email": "bob@example.com",
+    "avatar": "/placeholder-user.jpg",
+    "bio": "Travel writer and photographer exploring hidden gems around the world",
+    "followers": 890,
+    "following": 120,
+    "role": "user",
+    "createdAt": "2023-11-15T00:00:00.000Z",
+    "socialLinks": {
+      "instagram": "https://instagram.com/bobsmith_travels",
+      "website": "https://bobsmithphotography.com"
+    },
+    "bookmarks": ["blog1", "blog4"],
+    "notificationSettings": {
+      "email": true,
+      "push": false,
+      "comments": true,
+      "likes": false
+    }
+  },
+  {
+    "_id": "user3",
+    "name": "Carol Davis",
+    "email": "carol@example.com",
+    "avatar": "/placeholder-user.jpg",
+    "bio": "Food blogger and chef sharing recipes and culinary adventures",
+    "followers": 2100,
+    "following": 450,
+    "role": "user",
+    "createdAt": "2023-10-20T00:00:00.000Z",
+    "socialLinks": {
+      "youtube": "https://youtube.com/caroldaviscooks",
+      "instagram": "https://instagram.com/caroldaviscooks"
+    },
+    "bookmarks": ["blog1", "blog2", "blog4"],
+    "notificationSettings": {
+      "email": true,
+      "push": true,
+      "comments": true,
+      "likes": true
+    }
+  },
+  {
+    "_id": "user4",
+    "name": "David Wilson",
+    "email": "david@example.com",
+    "avatar": "/placeholder-user.jpg",
+    "bio": "Productivity coach and wellness advocate",
+    "followers": 650,
+    "following": 200,
+    "role": "user",
+    "createdAt": "2023-12-10T00:00:00.000Z",
+    "socialLinks": {
+      "linkedin": "https://linkedin.com/in/davidwilson"
+    },
+    "bookmarks": ["blog4", "blog5"],
+    "notificationSettings": {
+      "email": true,
+      "push": true,
+      "comments": false,
+      "likes": true
+    }
+  },
+  {
+    "_id": "user5",
+    "name": "Emma Thompson",
+    "email": "emma@example.com",
+    "avatar": "/placeholder-user.jpg",
+    "bio": "Lifestyle blogger and mindfulness practitioner",
+    "followers": 1800,
+    "following": 300,
+    "role": "user",
+    "createdAt": "2023-11-01T00:00:00.000Z",
+    "socialLinks": {
+      "twitter": "https://twitter.com/emmathompson",
+      "website": "https://emmathompsonblog.com"
+    },
+    "bookmarks": ["blog3", "blog4", "blog5"],
+    "notificationSettings": {
+      "email": false,
+      "push": true,
+      "comments": true,
+      "likes": true
+    }
+  }
+]

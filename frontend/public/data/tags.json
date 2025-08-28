@@ -1,0 +1,90 @@
+[
+  {
+    "_id": "tag1",
+    "name": "javascript",
+    "displayName": "JavaScript",
+    "slug": "javascript",
+    "description": "JavaScript programming language",
+    "color": "#F7DF1E",
+    "blogCount": 8,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag2",
+    "name": "react",
+    "displayName": "React",
+    "slug": "react",
+    "description": "React JavaScript library",
+    "color": "#61DAFB",
+    "blogCount": 5,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag3",
+    "name": "travel-tips",
+    "displayName": "Travel Tips",
+    "slug": "travel-tips",
+    "description": "Practical travel advice",
+    "color": "#10B981",
+    "blogCount": 6,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag4",
+    "name": "cooking",
+    "displayName": "Cooking",
+    "slug": "cooking",
+    "description": "Cooking techniques and recipes",
+    "color": "#F59E0B",
+    "blogCount": 4,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag5",
+    "name": "wellness",
+    "displayName": "Wellness",
+    "slug": "wellness",
+    "description": "Health and wellness tips",
+    "color": "#8B5CF6",
+    "blogCount": 7,
+    "featured": true,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag6",
+    "name": "productivity",
+    "displayName": "Productivity",
+    "slug": "productivity",
+    "description": "Productivity tips and techniques",
+    "color": "#EF4444",
+    "blogCount": 5,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag7",
+    "name": "mindfulness",
+    "displayName": "Mindfulness",
+    "slug": "mindfulness",
+    "description": "Mindfulness and meditation",
+    "color": "#06B6D4",
+    "blogCount": 3,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  },
+  {
+    "_id": "tag8",
+    "name": "photography",
+    "displayName": "Photography",
+    "slug": "photography",
+    "description": "Photography tips and techniques",
+    "color": "#84CC16",
+    "blogCount": 2,
+    "featured": false,
+    "createdAt": "2023-10-01T00:00:00.000Z"
+  }
+]

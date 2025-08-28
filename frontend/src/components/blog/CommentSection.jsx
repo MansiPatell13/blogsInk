@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Heart, MessageCircle, MoreHorizontal, Edit, Trash2, Flag, Send } from 'lucide-react';
 import { useAuth } from '../../utils/useAuth.jsx';
-import api from '../../utils/api';
+import jsonDataService from '../../services/jsonDataService';
 import { toast } from 'react-hot-toast';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
@@ -27,7 +27,7 @@ const CommentSection = ({ blogId }) => {
   const fetchComments = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/blogs/${blogId}/comments`);
+      const response = await jsonDataService.getComments(blogId);
       setComments(response.data);
     } catch (err) {
       toast.error('Failed to load comments');
@@ -41,9 +41,7 @@ const CommentSection = ({ blogId }) => {
     if (!newComment.trim()) return;
 
     try {
-      const response = await api.post(`/blogs/${blogId}/comments`, {
-        content: newComment,
-      });
+      const response = await jsonDataService.createComment(blogId, { content: newComment });
       setComments([response.data, ...comments]);
       setNewComment('');
       toast.success('Comment added successfully!');
@@ -57,10 +55,7 @@ const CommentSection = ({ blogId }) => {
     if (!replyContent.trim()) return;
 
     try {
-      const response = await api.post(`/blogs/${blogId}/comments`, {
-        content: replyContent,
-        parentComment: replyingTo._id,
-      });
+      const response = await jsonDataService.createComment(blogId, { content: replyContent, parentComment: replyingTo._id });
       
       // Add reply to the parent comment
       const updatedComments = comments.map(comment => {
@@ -86,9 +81,7 @@ const CommentSection = ({ blogId }) => {
     if (!editContent.trim()) return;
 
     try {
-      const response = await api.put(`/comments/${editingComment._id}`, {
-        content: editContent,
-      });
+      const response = await jsonDataService.updateComment(editingComment._id, { content: editContent });
       
       const updatedComments = comments.map(comment => {
         if (comment._id === editingComment._id) {
@@ -112,7 +105,7 @@ const CommentSection = ({ blogId }) => {
     }
 
     try {
-      await api.delete(`/comments/${commentId}`);
+      await jsonDataService.deleteComment(commentId);
       setComments(comments.filter(comment => comment._id !== commentId));
       toast.success('Comment deleted successfully!');
     } catch (err) {
@@ -149,11 +142,11 @@ const CommentSection = ({ blogId }) => {
   };
 
   const canEditComment = (comment) => {
-    return user && (user._id === comment.author._id || user.role === 'admin');
+    return user && (user._id === comment.author._id);
   };
 
   const canDeleteComment = (comment) => {
-    return user && (user._id === comment.author._id || user.role === 'admin');
+    return user && (user._id === comment.author._id);
   };
 
   const isLiked = (comment) => {

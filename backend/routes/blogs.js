@@ -2,7 +2,7 @@ const express = require('express')
 const { body, validationResult } = require('express-validator')
 const Blog = require('../models/Blog')
 const User = require('../models/User')
-const { auth, adminAuth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth')
 const notificationManager = require('../utils/notificationManager')
 const mongoose = require('mongoose')
 
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   try {
     const { page = 1, limit = 10, category, search, sort = 'latest' } = req.query
     
-    let query = { published: true }
+    let query = { status: 'published' }
     
     // Filter by category
     if (category && category !== 'all') {
@@ -104,7 +104,7 @@ router.post('/draft', auth, [
   body('excerpt').optional().trim().isLength({ min: 10, max: 500 }).withMessage('Excerpt must be between 10 and 500 characters'),
   body('category').optional().trim().notEmpty().withMessage('Category is required'),
   body('tags').optional().isArray().withMessage('Tags must be an array'),
-  body('status').optional().isIn(['draft', 'published']).withMessage('Status must be draft or published')
+  body('status').optional().isIn(['draft', 'published', 'archived']).withMessage('Status must be draft, published, or archived')
 ], async (req, res) => {
   try {
     const errors = validationResult(req)
@@ -128,7 +128,7 @@ router.post('/draft', auth, [
       category: category || 'general',
       tags: tags || [],
       imageUrl,
-      published: status === 'published',
+      status: status || 'draft',
       slug,
       author: req.user._id
     })
@@ -136,9 +136,7 @@ router.post('/draft', auth, [
     await blog.save()
     
     // If blog is published, create notifications for followers
-    if (blog.published) {
-      blog.publishedAt = Date.now()
-      await blog.save()
+    if (blog.status === 'published') {
       await notificationManager.createBlogPublishedNotifications(
         blog._id,
         req.user._id,
@@ -173,7 +171,7 @@ router.post('/', auth, [
       return res.status(400).json({ errors: errors.array() })
     }
     
-    const { title, content, excerpt, category, tags, imageUrl, published = false } = req.body
+    const { title, content, excerpt, category, tags, imageUrl, status = 'draft' } = req.body
     
     // Generate slug from title
     const slug = title
@@ -189,7 +187,7 @@ router.post('/', auth, [
       category,
       tags,
       imageUrl,
-      published,
+      status,
       slug,
       author: req.user._id
     })
@@ -197,9 +195,7 @@ router.post('/', auth, [
     await blog.save()
     
     // If blog is published, create notifications for followers
-    if (blog.published) {
-      blog.publishedAt = Date.now()
-      await blog.save()
+    if (blog.status === 'published') {
       await notificationManager.createBlogPublishedNotifications(
         blog._id,
         req.user._id,
@@ -404,7 +400,7 @@ router.get('/user/:userId', async (req, res) => {
   try {
     const blogs = await Blog.find({ 
       author: req.params.userId, 
-      published: true 
+      status: 'published' 
     })
     .populate('author', 'name avatar')
     .sort({ createdAt: -1 })

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Filter, TrendingUp, Clock, Eye } from 'lucide-react'
 import BlogCard from '../components/BlogCard'
-import api from '../utils/api'
+import jsonDataService from '../services/jsonDataService'
 
 const HomePage = () => {
   const [blogs, setBlogs] = useState([])
@@ -16,12 +16,16 @@ const HomePage = () => {
   useEffect(() => {
     fetchBlogs()
     fetchCategories()
-  }, [])
+  }, [selectedCategory, searchQuery, sortBy])
 
   const fetchBlogs = async () => {
     try {
       setLoading(true)
-      const response = await api.get('/blogs')
+      const response = await jsonDataService.getBlogs({ 
+        category: selectedCategory !== 'all' ? selectedCategory : undefined,
+        search: searchQuery || undefined,
+        sort: sortBy 
+      })
       setBlogs(response.data.blogs || response.data || [])
       setError(null)
     } catch (error) {
@@ -34,7 +38,7 @@ const HomePage = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await api.get('/categories')
+      const response = await jsonDataService.getCategories()
       setCategories(response.data || [])
     } catch (error) {
       console.error('Error fetching categories:', error)

@@ -11,7 +11,6 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import BlogDetailPage from './pages/BlogDetailPage'
 import WritePage from './pages/WritePage'
 import ProfilePage from './pages/ProfilePage'
-import AdminPage from './pages/AdminPage'
 import AboutPage from './pages/AboutPage'
 import HelpPage from './pages/HelpPage'
 import LibraryPage from './pages/LibraryPage'
@@ -66,7 +65,6 @@ function AppContent() {
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/write" element={<WritePage />} />
             <Route path="/profile/:username?" element={<ProfilePage />} />
-            <Route path="/admin" element={<AdminPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/library" element={<LibraryPage />} />

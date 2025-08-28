@@ -57,7 +57,7 @@ tagSchema.methods.updateBlogCount = async function() {
   const Blog = require('./Blog')
   const count = await Blog.countDocuments({ 
     tags: this._id, 
-    published: true 
+    status: 'published' 
   })
   this.blogCount = count
   await this.save()
