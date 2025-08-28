@@ -96,7 +96,7 @@ const RichTextEditor = ({
     input.setAttribute('accept', 'image/*')
     input.click()
 
-    input.onchange = () => {
+    input.onchange = async () => {
       const file = input.files[0]
       if (file) {
         // Check file size (limit to 5MB)
@@ -105,12 +105,40 @@ const RichTextEditor = ({
           return
         }
         
-        const reader = new FileReader()
-        reader.onload = () => {
+        try {
+          // Create a FormData object to send the file
+          const formData = new FormData()
+          formData.append('image', file)
+          
+          // Show loading indicator in editor
           const range = quill?.getSelection() || { index: 0 }
-          quill?.insertEmbed(range.index, 'image', reader.result)
+          const loadingPlaceholder = 'Uploading image...'
+          quill?.insertText(range.index, loadingPlaceholder)
+          
+          // Send the image to the server
+          const response = await fetch('/api/uploads/content-image', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+          })
+          
+          // Remove loading placeholder
+          quill?.deleteText(range.index, loadingPlaceholder.length)
+          
+          if (!response.ok) {
+            throw new Error('Failed to upload image')
+          }
+          
+          const data = await response.json()
+          
+          // Insert the image URL from the server response
+          quill?.insertEmbed(range.index, 'image', data.imageUrl)
+        } catch (error) {
+          console.error('Error uploading image:', error)
+          alert('Failed to upload image. Please try again.')
         }
-        reader.readAsDataURL(file)
       }
     }
   }

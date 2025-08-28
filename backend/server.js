@@ -93,11 +93,11 @@ app.get('/api/health', (req, res) => {
   })
 })
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).json({ message: 'Something went wrong!' })
-})
+// Import error handling middleware
+const { errorMiddleware } = require('./utils/errorHandler')
+
+// Global error handling middleware
+app.use(errorMiddleware)
 
 // 404 handler
 app.use('*', (req, res) => {

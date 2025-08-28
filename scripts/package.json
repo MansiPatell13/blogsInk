@@ -1,0 +1,12 @@
+{
+  "name": "blogsink-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for BlogsInk application",
+  "main": "setupDatabase.js",
+  "scripts": {
+    "setup-db": "node setupDatabase.js"
+  },
+  "dependencies": {
+    "mongodb": "^5.0.0"
+  }
+}
