@@ -17,7 +17,7 @@ router.post('/register', [
     // Check validation errors
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
+      return res.status(400).json({ message: errors.array()[0].msg })
     }
 
     const { name, email, password } = req.body
@@ -67,43 +67,34 @@ router.post('/login', [
   body('password').notEmpty().withMessage('Password is required')
 ], async (req, res) => {
   try {
-    console.log('Login request received:', req.body)
-    
     // Check validation errors
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      console.log('Validation errors:', errors.array())
-      return res.status(400).json({ errors: errors.array() })
+      return res.status(400).json({ message: errors.array()[0].msg })
     }
 
     const { email, password } = req.body
-    console.log('Attempting login for email:', email)
 
     // Find user by email
     const user = await User.findOne({ email })
     if (!user) {
-      console.log('User not found for email:', email)
       return res.status(400).json({ message: 'Invalid credentials' })
     }
-    console.log('User found:', user._id)
 
     // Check password with safe guard
     let isMatch = false
     try {
       if (typeof user.password !== 'string' || user.password.length === 0) {
         // Stored password is invalid; treat as auth failure
-        console.log('Invalid password format in database')
         return res.status(400).json({ message: 'Invalid credentials' })
       }
       isMatch = await user.comparePassword(password)
-      console.log('Password match result:', isMatch)
     } catch (compareErr) {
       // Avoid leaking details; log and return 400
-      console.error(`Password compare error for email ${email}:`, compareErr)
+      console.error(`Password compare error:`, compareErr)
       return res.status(400).json({ message: 'Invalid credentials' })
     }
     if (!isMatch) {
-      console.log('Password does not match')
       return res.status(400).json({ message: 'Invalid credentials' })
     }
 

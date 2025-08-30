@@ -43,11 +43,13 @@ const RegisterForm = () => {
       
       if (result.success) {
         toast.success('Account created successfully!')
+        navigate('/')
       } else {
-        toast.error(result.error)
+        toast.error(result.error || 'Registration failed. Please try again.')
       }
     } catch (error) {
-      toast.error('An unexpected error occurred')
+      console.error('Registration error:', error)
+      toast.error('An unexpected error occurred. Please try again later.')
     } finally {
       setLoading(false)
     }

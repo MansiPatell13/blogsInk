@@ -24,10 +24,20 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('authToken')
       if (token) {
         const response = await api.get('/auth/me')
-        setUser(response.data.user)
+        if (response.data && response.data.user) {
+          setUser(response.data.user)
+        } else {
+          // Invalid response format
+          localStorage.removeItem('authToken')
+          setUser(null)
+        }
+      } else {
+        setUser(null)
       }
     } catch (error) {
+      console.error('Auth check error:', error)
       localStorage.removeItem('authToken')
+      setUser(null)
     } finally {
       setLoading(false)
     }
@@ -41,7 +51,11 @@ export const AuthProvider = ({ children }) => {
       setUser(user)
       return { success: true }
     } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Login failed' }
+      console.error('Login error:', error)
+      return { 
+        success: false, 
+        error: error.response?.data?.message || 'Login failed. Please check your credentials.' 
+      }
     }
   }
 
@@ -53,7 +67,11 @@ export const AuthProvider = ({ children }) => {
       setUser(user)
       return { success: true }
     } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Registration failed' }
+      console.error('Registration error:', error)
+      return { 
+        success: false, 
+        error: error.response?.data?.message || 'Registration failed. Please try again.' 
+      }
     }
   }
 

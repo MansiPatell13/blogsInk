@@ -22,11 +22,14 @@ const LoginForm = () => {
       
       if (result.success) {
         toast.success('Welcome back!')
+        // Redirect to home page after successful login
+        window.location.href = '/'
       } else {
         toast.error(result.error || 'Login failed. Please check your credentials.')
       }
     } catch (error) {
-      toast.error('An unexpected error occurred')
+      console.error('Login error:', error)
+      toast.error('An unexpected error occurred. Please try again later.')
     }
   }
 
